@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { logoutAction } from "@/lib/action";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,11 @@ export default function RootLayout({
             </li>
             <li>
               <Link href="/login">Login</Link>
+            </li>
+            <li>
+              <form action={logoutAction}>
+                <button type="submit">Logout</button>
+              </form>
             </li>
             <li>
               <Link href="/register">Register</Link>

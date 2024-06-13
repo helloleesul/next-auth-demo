@@ -56,17 +56,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         await connectDB();
 
-        const existingUser = await User.findOne({ authProviderId: user.id });
+        const existingUser = await User.findOne({
+          email,
+          authProviderId: "github",
+        });
         if (!existingUser) {
           await new User({
             name,
             email,
-            authProviderId: user.id,
+            authProviderId: "github",
             role: "user",
           }).save();
         }
 
-        const socialUser = await User.findOne({ authProviderId: user.id });
+        const socialUser = await User.findOne({ authProviderId: "github" });
 
         user.role = socialUser?.role || "user";
         user.id = socialUser?._id || null;
